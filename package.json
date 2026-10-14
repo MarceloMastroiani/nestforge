@@ -15,11 +15,14 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "11.10.0",
+      "version": "12.11.2",
       "onFail": "download"
     }
   },
   "type": "module",
+  "bin": {
+    "nestforge": "./dist/cli.js"
+  },
   "dependencies": {
     "@clack/prompts": "^1.7.0",
     "commander": "^15.0.0"
