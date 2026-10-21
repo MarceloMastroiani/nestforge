@@ -1,0 +1,14 @@
+FROM node:<%= nodeVersion %>-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+<% if (prisma) { %>RUN npx prisma generate
+<% } %>RUN npm run build
+
+FROM node:<%= nodeVersion %>-alpine
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+EXPOSE <%= port %>
+CMD ["node", "dist/main"]
